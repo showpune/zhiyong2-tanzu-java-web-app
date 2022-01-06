@@ -1,0 +1,36 @@
+profile: dev
+ceip_policy_disclosed: true # Installation fails if this is set to 'false'
+buildservice:
+  kp_default_repository: "index.docker.io/showpune/build-service"
+  kp_default_repository_username: "showpune"
+  kp_default_repository_password: "Nuonuo8815"
+  tanzunet_username: "iamlizhiyong@outlook.com"
+  tanzunet_password: "Nuonuo-8815"
+
+supply_chain: basic
+
+ootb_supply_chain_basic:
+  registry:
+    server: "index.docker.io"
+    repository: "showpune"
+
+tap_gui:
+  service_type: LoadBalancer # NodePort for distributions that don't support LoadBalancer
+  app_config:
+    app:
+      baseUrl: http://tap4.asc-test.net:7000
+    integrations:
+      github: # Other integrations available see NOTE below
+        - host: github.com
+          token: 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
+    catalog:
+      locations:
+        - type: url
+          target: https://github.com/showpune/tap-gui-yelb-catalog/raw/master/catalog-info.yaml
+    backend:
+      baseUrl: http://tap4.asc-test.net:7000
+      cors:
+        origin: http://tap4.asc-test.net:7000
+
+metadata_store:
+  app_service_type: LoadBalancer # (optional) Defaults to LoadBalancer. Change to NodePort for distributions that don't support LoadBalancer
