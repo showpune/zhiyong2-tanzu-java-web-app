@@ -1,7 +1,7 @@
 allow_k8s_contexts('osm-admin')
 
-SOURCE_IMAGE = os.getenv("SOURCE_IMAGE", default='index.docker.io/showpune/zhiyong2-tanzu-java-web-app-tap-developer')
-LOCAL_PATH = os.getenv("LOCAL_PATH", default='D:/projects/zhiyong2-tanzu-java-web-app')
+SOURCE_IMAGE = os.getenv("SOURCE_IMAGE", default='hub.docker.com/repository/docker/showpune/zhiyong2-tanzu-java-web-app-tap-developer')
+LOCAL_PATH = os.getenv("LOCAL_PATH", default='.')
 NAMESPACE = os.getenv("NAMESPACE", default='tap-developer')
 
 k8s_custom_deploy(
@@ -11,7 +11,7 @@ k8s_custom_deploy(
                 " --local-path " + LOCAL_PATH +
                 " --source-image " + SOURCE_IMAGE +
                 " --namespace " + NAMESPACE +
-                " --yes " +
+                " -y " +
               "&& kubectl get workload zhiyong2-tanzu-java-web-app --namespace " + NAMESPACE + " -o yaml",
     delete_cmd="tanzu apps workload delete -f config/workload.yaml --namespace " + NAMESPACE + " --yes",
     deps=['pom.xml', './target/classes'],

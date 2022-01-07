@@ -11,3 +11,10 @@ spec:
       url: https://github.com/showpune/zhiyong2-tanzu-java-web-app
       ref:
         branch: master
+  resources:
+    requests:
+      memory: 1Gi
+      cpu: 100m
+    limits:
+      memory: 1Gi
+      cpu: 4000m
