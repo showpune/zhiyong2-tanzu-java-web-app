@@ -1,0 +1,4 @@
+kc port-forward service/envoy 8888:80 -n tanzu-system-ingress
+
+curl http://localhost:8888 -Headers @{"Host"="zhiyong2-tanzu-java-web-app.tap-developer.example.com"}
+
