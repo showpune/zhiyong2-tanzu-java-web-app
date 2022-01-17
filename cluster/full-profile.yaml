@@ -1,4 +1,4 @@
-profile: light
+profile: full
 ceip_policy_disclosed: true # Installation fails if this is set to 'false'
 buildservice:
   kp_default_repository: "index.docker.io/showpune/build-service"
@@ -6,33 +6,39 @@ buildservice:
   kp_default_repository_password: "Nuonuo8815"
   tanzunet_username: "iamlizhiyong@outlook.com"
   tanzunet_password: "Nuonuo-8815"
-
+  descriptor_name: "Full Hub"
+  enable_automatic_dependency_updates: true
 supply_chain: basic
 
 ootb_supply_chain_basic:
   registry:
-    server: "index.docker.io"
-    repository: "showpune"
+    server: "SERVER-NAME"
+    repository: "REPO-NAME"
+  gitops:
+    ssh_secret: ""
+
+learningcenter:
+  ingressDomain: "DOMAIN-NAME"
 
 tap_gui:
-  service_type: LoadBalancer # NodePort for distributions that don't support LoadBalancer
+  service_type: ClusterIP
   ingressEnabled: "true"
-  ingressDomain: "asc-test.net"
+  ingressDomain: "INGRESS-DOMAIN"
   app_config:
     app:
-      baseUrl: http://tap10.asc-test.net:7000
-    integrations:
-      github: # Other integrations available see NOTE below
-        - host: github.com
-          token: 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
+      baseUrl: http://tap-gui.INGRESS-DOMAIN
     catalog:
       locations:
         - type: url
-          target: https://raw.githubusercontent.com/showpune/zhiyong2-tanzu-java-web-app/master/catalog-info.yaml
+          target: https://GIT-CATALOG-URL/catalog-info.yaml
     backend:
-      baseUrl: http://tap10.asc-test.net:7000
+      baseUrl: http://tap-gui.INGRESS-DOMAIN
       cors:
-        origin: http://tap10.asc-test.net:7000
+        origin: http://tap-gui.INGRESS-DOMAIN
 
 metadata_store:
   app_service_type: LoadBalancer # (optional) Defaults to LoadBalancer. Change to NodePort for distributions that don't support LoadBalancer
+
+grype:
+  namespace: "MY-DEV-NAMESPACE" # (optional) Defaults to default namespace.
+  targetImagePullSecret: "TARGET-REGISTRY-CREDENTIALS-SECRET"
